@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,74 @@ class Client
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $deleted_at;
+
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="Information", mappedBy="client")
+     */
+    private $information;
+
+    /**
+     * @ORM\OneToOne(targetEntity="User", mappedBy="client")
+     */
+    private $manager;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="client")
+     */
+    private $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+        $this->created_at = new \DateTime();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProjects(): ArrayCollection
+    {
+        return $this->projects;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param mixed $manager
+     */
+    public function setManager($manager): void
+    {
+        $this->manager = $manager;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getInformation()
+    {
+        return $this->information;
+    }
+
+    /**
+     * @param mixed $information
+     */
+    public function setInformation($information): void
+    {
+        $this->information = $information;
+    }
+
+
 
     public function getId(): ?int
     {
@@ -88,4 +157,11 @@ class Client
 
         return $this;
     }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->id.' .';
+    }
+
 }

@@ -55,15 +55,15 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Information }
 
-#    admin.project:
-#        class: App\Admin\ProjectAdmin
-#        arguments: [~, App\Entity\Project, ~]
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, label: Project }
-#
-#    admin.client:
-#        class: App\Admin\ClientAdmin
-#        arguments: [~, App\Entity\Client, ~]
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, label: Client }
+    admin.project:
+        class: App\Admin\ProjectAdmin
+        arguments: [~, App\Entity\Project, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Project }
+
+    admin.client:
+        class: App\Admin\ClientAdmin
+        arguments: [~, App\Entity\Client, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Client }
 

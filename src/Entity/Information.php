@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InformationRepository")
@@ -63,18 +62,52 @@ class Information
     private $deleted_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="Information")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="Information")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $users;
+    private $user;
 
-    public function getUsers()
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="Information")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */
+    private $client;
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
     {
-        return $this->users;
+        return $this->client;
     }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client): void
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->created_at = new \DateTime();
     }
 
